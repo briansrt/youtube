@@ -156,7 +156,7 @@ export default function YoutubePage({user}) {
         {activeTab === 'my-videos' ? (
           <div className="my-videos">
             <h2>Mis videos</h2>
-            <form onSubmit={handleSubmit} className="upload-form">
+            <form onSubmit={handleSubmit} className="upload-form" enctype="multipart/form-data">
               <div className="form-group">
                 <label htmlFor="video-title">Título del video:</label>
                 <input type="text" id="video-title" value={videoTitle} onChange={(e) => setVideoTitle(e.target.value)} required
