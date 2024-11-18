@@ -92,7 +92,9 @@ export default function YoutubePage({user}) {
       });
       
       if (response.ok) {
-        fetchVideos(); 
+        const newVideo = await response.json();
+      // Agregar el nuevo video a los videos ya subidos en el estado
+      setUploadedVideos((prev) => [...prev, newVideo]);
         alert("Video subido con éxito.");
       } else {
         alert("Error al subir el video.");
