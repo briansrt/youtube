@@ -6,12 +6,11 @@ export default function Register({ role }) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:4000/user/signup', {
+      const response = await fetch('https://youtube-back-blue.vercel.app/user/signup', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -65,16 +64,7 @@ export default function Register({ role }) {
             required
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="confirmPassword">Confirmar contraseña</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
+        
         <button type="submit" className="register-button">
           Registrarse
         </button>
