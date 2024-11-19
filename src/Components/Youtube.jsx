@@ -8,6 +8,7 @@ export default function YoutubePage({user}) {
   const [videoPreview, setVideoPreview] = useState(null);
   const [previewURL, setPreviewURL] = useState(null);
   const [videoTitle, setVideoTitle] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [uploadedVideos, setUploadedVideos] = useState([]);
   const [otherVideos, setOtherVideos] = useState([]);
   const fileInputRef = useRef(null);
@@ -81,6 +82,7 @@ export default function YoutubePage({user}) {
       alert("Debe proporcionar un título y un archivo de video.");
       return;
     }
+    setIsLoading(true);
     const formData = new FormData();
     formData.append('userId', user._id);
     formData.append('title', videoTitle);
@@ -93,8 +95,9 @@ export default function YoutubePage({user}) {
       
       if (response.ok) {
         const newVideo = await response.json();
+
       // Agregar el nuevo video a los videos ya subidos en el estado
-      setUploadedVideos((prev) => [...prev, newVideo]);
+      setUploadedVideos((prev) => [...prev, newVideo.video]);
         alert("Video subido con éxito.");
       } else {
         alert("Error al subir el video.");
@@ -104,6 +107,7 @@ export default function YoutubePage({user}) {
       alert('Error al conectar con el servidor');
     }
     // Reiniciar el formulario
+    setIsLoading(false);
     setVideoTitle('');
     setVideoPreview(null);
     setPreviewURL(null);
@@ -114,6 +118,12 @@ export default function YoutubePage({user}) {
 
   return (
     <div className="youtube-clone">
+      {isLoading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+          <p>Cargando, por favor espere...</p>
+        </div>
+      )}
       <header className="header">
         <div className="header-left">
           <button className="icon-button">
