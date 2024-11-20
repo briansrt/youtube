@@ -12,7 +12,7 @@ export default function YoutubePage({user}) {
   const [uploadedVideos, setUploadedVideos] = useState([]);
   const [otherVideos, setOtherVideos] = useState([]);
   const fileInputRef = useRef(null);
-  const avatar = `https://api.multiavatar.com/${Math.floor(Math.random() * 1000)}.svg`;
+  const avatar = `https://api.multiavatar.com/${user._id}.svg`;
 
 
   if (!user || user.role !== 'user') {
