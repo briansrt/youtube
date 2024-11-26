@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Search, Menu, Video, Users, Upload, ThumbsUp, MessageCircle, Share2 } from 'lucide-react';
 import './Styles/Youtube.css';
 
@@ -12,12 +12,17 @@ export default function YoutubePage({user}) {
   const [uploadedVideos, setUploadedVideos] = useState([]);
   const [otherVideos, setOtherVideos] = useState([]);
   const fileInputRef = useRef(null);
-  const avatar = `https://api.multiavatar.com/${user._id}.svg`;
-
+  const home = useNavigate();
 
   if (!user || user.role !== 'user') {
     return <Navigate to="/" />;
   }
+
+  const handleLogout = () => {
+    home("/");
+  };
+
+  const avatar = `https://api.multiavatar.com/${user._id}.svg`;
 
     useEffect(() => {
     // Fetch the uploaded videos from the server
@@ -162,6 +167,9 @@ export default function YoutubePage({user}) {
         >
           <Users />
           Videos de otros usuarios
+        </button>
+        <button onClick={handleLogout} className="logout-button">
+          Salir
         </button>
       </nav>
       <main className="content">
